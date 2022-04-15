@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box{
+      width: 100px;
+      height: 100px;
+    }
+    .boxWrapper{
+      display: flex;
+      flex-direction: row;
+      height: 100px;
+    }
+    .redBrg{
+      background-color: red;
+    }
+    .yellowBrg{
+      background-color: yellow;
+    }
+    .pinkBrg{
+      background-color: pink;
+    }
+    .blueBrg{
+      background-color: blue;
+    }
+  </style>
+</head>
+<body>
+  
+  <div id="app">
+    <!-- 
+      逻辑 -> 数据 <-> 视图 
+      Vue -> v-model
+     -->
+     <div>
+       <input type="text" v-model="name" placeholder="姓名" />
+       <input type="text" v-model="age" placeholder="年龄" />
+       <input type="text" v-model="email" placeholder="邮箱" />
+       <input type="text" v-model="tel" placeholder="电话号码" />
+     </div>
+     <div>
+       <p>姓名：<span>{{ name }}</span></p>
+       <p>年龄：<span>{{ age }}</span></p>
+       <p>邮箱：<span>{{ email }}</span></p>
+       <p>
+         <p>
+          电话：<span>{{ tel }}</span>
+         </p>
+       </p>
+     </div>
+     <button id="btn">改变名字</button>
+     <div class="boxWrapper">
+        <div class="box redBrg" v-if="boxShow1">盒子1</div>
+        <div class="box yellowBrg" v-if="boxShow2">盒子2</div>
+        <div class="box pinkBrg" v-if="boxShow3">盒子3</div>
+        <div class="box blueBrg" v-if="boxShow4">盒子4</div>
+     </div>
+     <button @click="showBox1">按钮1</button>
+     <button @click="showBox2">按钮2</button>
+     <button @click="showBox3">按钮3</button>
+     <button @click="showBox4">按钮4</button>
+  </div>
+
+  <script src="mvvm.js"></script>
+  
+  <script>
+    const app = new MVVM({
+      el:'#app',
+      data:{
+        name: '',
+        age: '',
+        email: '',
+        tel: '',
+        boxShow1:false,
+        boxShow2:false,
+        boxShow3:false,
+        boxShow4:false,
+      },
+      methods: {
+        showBox1(){
+          console.log(this)
+          this.boxShow1 = !this.boxShow1
+        },
+        showBox2(){
+          this.boxShow2 = !this.boxShow2
+        },
+        showBox3(){
+          this.boxShow3 = !this.boxShow3
+        },
+        showBox4(){
+          this.boxShow4 = !this.boxShow4
+        }
+      }
+    }); 
+
+    document.querySelector('#btn').addEventListener('click', function () {
+      app.setData('name', '方叶庆');
+    });
+  </script>
+</body>
+</html>
