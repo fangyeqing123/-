@@ -20,9 +20,21 @@ function myNew (fun) {
     return obj
   }
 }
+
+function myNew2() {
+  var obj = new Object()
+  Constructor = [].shift.call(arguments);
+  obj.__proto__ = Constructor.prototype;
+  var ret = Constructor.apply(obj, arguments);
+  
+  // ret || obj 这里这么写考虑了构造函数显示返回 null 的情况
+  return typeof ret === 'object' ? ret || obj : obj;
+};
+
  
 function person(name, age) {
   this.name = name
   this.age = age
 }
 let obj = myNew(person)('chen', 18) // {name: "chen", age: 18}
+let obj2 = myNew2(person,'chen', 18) // {name: "chen", age: 18}
